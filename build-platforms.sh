@@ -39,3 +39,5 @@ pull_and_enter_build
 make_wg_go "iphoneos" "arm64"
 make_wg_go "iphonesimulator" "arm64 x86_64"
 make_wg_go "macosx" "arm64 x86_64"
+make_wg_go "appletvos" "arm64"
+make_wg_go "appletvsimulator" "arm64 x86_64"
