@@ -1,5 +1,5 @@
 #!/bin/bash
-PLATFORMS_PATH="build/platforms"
+PLATFORMS_PATH="build"
 FRAMEWORK_PATH="build/wg-go.xcframework"
 
 PLATFORMS=("iphoneos" "iphonesimulator" "macosx" "appletvos" "appletvsimulator")
