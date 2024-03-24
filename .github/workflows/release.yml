@@ -20,7 +20,7 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: "stable"
-      - uses: passepartoutvpn/action-release-binary-package@v1
+      - uses: passepartoutvpn/action-release-binary-package@master
         with:
           script: "ci-generate.sh"
           framework: "wg-go.xcframework"

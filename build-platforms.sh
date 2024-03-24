@@ -1,7 +1,7 @@
 #!/bin/bash
 WG_GO_PATH="src"
 BUILD_PATH="build"
-FRAMEWORK_PATH="$BUILD_PATH/wg-go.xcframework"
+FRAMEWORK_PATH="$BUILD_PATH/$1"
 
 function make_wg_go() {
     local platform_name="$1"
