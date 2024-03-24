@@ -7,9 +7,6 @@ on:
     paths:
       - ".version"
 
-env:
-  FRAMEWORK_ARTIFACT: "wg-go.xcframework"
-
 jobs:
   publish_binary_release:
     name: Publish binary release
