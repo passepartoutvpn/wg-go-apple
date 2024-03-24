@@ -2,7 +2,8 @@
 PLATFORMS_PATH="build"
 FRAMEWORK_PATH="wg-go.xcframework"
 
-PLATFORMS=("iphoneos" "iphonesimulator" "macosx" "appletvos" "appletvsimulator")
+#PLATFORMS=("iphoneos" "iphonesimulator" "macosx" "appletvos" "appletvsimulator")
+PLATFORMS=("iphoneos")
 for ARG in ${PLATFORMS[@]}; do
     ARGS+="-library $PLATFORMS_PATH/$ARG/libwg-go.a "
     ARGS+="-headers $PLATFORMS_PATH/$ARG/Headers "
