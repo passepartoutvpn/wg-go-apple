@@ -3,9 +3,9 @@ name: Binary Release
 on:
   push:
     branches:
-      - 'master'
+      - "master"
     paths:
-      - '.version'
+      - ".version"
 
 env:
   FRAMEWORK_ARTIFACT: "wg-go.xcframework"
@@ -13,83 +13,13 @@ env:
 jobs:
   publish_binary_release:
     name: Publish binary release
+    timeout-minutes: 10
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
-      - uses: maxim-lobanov/setup-xcode@v1
+      - uses: passepartoutvpn/action-release-binary-package@v1
         with:
-          xcode-version: "15.2"
-      - uses: actions/setup-go@v5
-        with:
-          go-version: "stable"
-      - name: Build framework
-        id: framework
-        timeout-minutes: 10
-        run: |
-          COMPOUND_VERSION=`cat .version`
-
-          LIBRARY_VERSION=${COMPOUND_VERSION%-*}
-          LIBRARY_MINOR=${LIBRARY_VERSION%.*}
-          LIBRARY_PATCH=${LIBRARY_VERSION##*.}
-
-          SCRIPT_VERSION=${COMPOUND_VERSION#*-}
-
-          MERGED_PATCH=$((($LIBRARY_PATCH + 1) * 100 + $SCRIPT_VERSION))
-          TAG_NAME="$LIBRARY_MINOR.$MERGED_PATCH"
-
-          ./build-platforms.sh
-          ./create-framework.sh
-
-          echo "tag=$TAG_NAME" >> $GITHUB_OUTPUT
-          echo "library_version=$LIBRARY_VERSION" >> $GITHUB_OUTPUT
-          echo "script_version=$SCRIPT_VERSION" >> $GITHUB_OUTPUT
-      - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v6
-        with:
-          gpg_private_key: ${{ secrets.GPG_KEY }}
-          passphrase: ${{ secrets.GPG_PASSPHRASE }}
-          git_user_signingkey: true
-          git_commit_gpgsign: true
-          git_tag_gpgsign: true
-          git_push_gpgsign: false
-      - name: Update package
-        id: package
-        env:
-          TAG_NAME: ${{ steps.framework.outputs.tag }}
-          LIBRARY_VERSION: ${{ steps.framework.outputs.library_version }}
-          SCRIPT_VERSION: ${{ steps.framework.outputs.script_version }}
-          PACKAGE_ZIP: ${{ env.FRAMEWORK_ARTIFACT }}.zip
-          PACKAGE_CHECKSUM: ${{ env.FRAMEWORK_ARTIFACT }}.zip.checksum
-          PACKAGE_METADATA: "Package.swift"
-        run: |
-          zip -yr "$PACKAGE_ZIP" "$FRAMEWORK_ARTIFACT"
-
-          CHECKSUM=`swift package compute-checksum "$PACKAGE_ZIP"`
-          echo $CHECKSUM >$PACKAGE_CHECKSUM
-
-          sed -E "s@/[0-9\.]*/(${PACKAGE_ZIP})@/${TAG_NAME}/\\1@" $PACKAGE_METADATA |
-              sed -E "s/checksum: \"[0-9a-f]*\"/checksum: \"${CHECKSUM}\"/" >$PACKAGE_METADATA.tmp
-          mv $PACKAGE_METADATA.tmp $PACKAGE_METADATA
-
-          RELEASE_NAME="$LIBRARY_VERSION"
-          if [ $SCRIPT_VERSION -gt 0 ]; then
-            RELEASE_NAME="$RELEASE_NAME ($SCRIPT_VERSION)"
-          fi
-
-          git add $PACKAGE_METADATA
-          git commit -m "$RELEASE_NAME"
-          git tag "$TAG_NAME" -m "$RELEASE_NAME"
-          git push && git push --tags
-
-          echo "release_name=$RELEASE_NAME" >> $GITHUB_OUTPUT
-          echo "zip=$PACKAGE_ZIP" >> $GITHUB_OUTPUT
-          echo "checksum=$PACKAGE_CHECKSUM" >> $GITHUB_OUTPUT
-      - name: Publish release
-        uses: softprops/action-gh-release@v2
-        with:
-          name: ${{ steps.package.outputs.release_name }}
-          tag_name: ${{ steps.framework.outputs.tag }}
-          generate_release_notes: true
-          files: |
-            ${{ steps.package.outputs.zip }}
-            ${{ steps.package.outputs.checksum }}
+          script: "ci-generate.sh"
+          framework: "wg-go.xcframework"
+          gpg-key: ${{ secrets.GPG_KEY }}
+          gpg-passphrase: ${{ secrets.GPG_PASSPHRASE }}

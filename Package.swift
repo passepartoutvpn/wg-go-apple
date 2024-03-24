@@ -14,8 +14,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "wg-go",
-            url: "https://github.com/passepartoutvpn/wg-go-apple/releases/download/1.0.2004/wg-go.xcframework.zip",
-            checksum: "91eee47e6e38587b4367654124ccc433caa42c8568800a058383ce65ffcb88ba"
+            url: "https://github.com/passepartoutvpn/wg-go-apple/releases/download/0.0.613/wg-go.xcframework.zip",
+            checksum: "613125fb66ebd6246c1a913ea98c993131a698c4e3251ba5ea8834ac17f9cda8"
         )
 
 //        // local development
