@@ -67,7 +67,7 @@ jobs:
           CHECKSUM=`swift package compute-checksum "$PACKAGE_ZIP"`
           echo $CHECKSUM >$PACKAGE_CHECKSUM
 
-          sed -E "s@/[0-9\.]*/${PACKAGE_ZIP}@/${TAG_NAME}/\\1@" $PACKAGE_METADATA |
+          sed -E "s@/[0-9\.]*/(${PACKAGE_ZIP})@/${TAG_NAME}/\\1@" $PACKAGE_METADATA |
               sed -E "s/checksum: \"[0-9a-f]*\"/checksum: \"${CHECKSUM}\"/" >$PACKAGE_METADATA.tmp
           mv $PACKAGE_METADATA.tmp $PACKAGE_METADATA
 
