@@ -1,5 +1,5 @@
 #!/bin/bash
-WG_GO_PATH="."
+WG_GO_PATH="src"
 BUILD_PATH="build"
 FRAMEWORK_PATH="$BUILD_PATH/wg-go.xcframework"
 
