@@ -9,7 +9,7 @@ on:
 #     - '.version'
 
 env:
-  PACKAGE_ARTIFACT: "build/wg-go.xcframework.zip"
+  FRAMEWORK_ARTIFACT: "wg-go.xcframework"
 
 jobs:
   publish_binary_release:
@@ -53,21 +53,22 @@ jobs:
           git_commit_gpgsign: true
           git_tag_gpgsign: true
           git_push_gpgsign: false
-      - name: Update Package.swift
+      - name: Update package
         id: package
         env:
           TAG_NAME: ${{ steps.framework.outputs.tag }}
           LIBRARY_VERSION: ${{ steps.framework.outputs.library_version }}
           SCRIPT_VERSION: ${{ steps.framework.outputs.script_version }}
-          PACKAGE_CHECKSUM: ${{ env.PACKAGE_ARTIFACT }}.checksum
+          PACKAGE_ZIP: ${{ env.FRAMEWORK_ARTIFACT }}.zip
+          PACKAGE_CHECKSUM: ${{ env.FRAMEWORK_ARTIFACT }}.zip.checksum
           PACKAGE_METADATA: "Package.swift"
         run: |
-          CHECKSUM=`swift package compute-checksum "$PACKAGE_ARTIFACT"`
+          zip -yr "$PACKAGE_ZIP" "$FRAMEWORK_ARTIFACT"
+
+          CHECKSUM=`swift package compute-checksum "$PACKAGE_ZIP"`
           echo $CHECKSUM >$PACKAGE_CHECKSUM
 
-          PACKAGE_ARTIFACT_NAME=`basename $PACKAGE_ARTIFACT`
-
-          sed -E "s@/[0-9\.]*/${PACKAGE_ARTIFACT_NAME}@/${TAG_NAME}/\\1@" $PACKAGE_METADATA |
+          sed -E "s@/[0-9\.]*/${PACKAGE_ZIP}@/${TAG_NAME}/\\1@" $PACKAGE_METADATA |
               sed -E "s/checksum: \"[0-9a-f]*\"/checksum: \"${CHECKSUM}\"/" >$PACKAGE_METADATA.tmp
           mv $PACKAGE_METADATA.tmp $PACKAGE_METADATA
 

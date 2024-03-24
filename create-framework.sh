@@ -1,6 +1,6 @@
 #!/bin/bash
 PLATFORMS_PATH="build"
-FRAMEWORK_PATH="build/wg-go.xcframework"
+FRAMEWORK_PATH="wg-go.xcframework"
 
 PLATFORMS=("iphoneos" "iphonesimulator" "macosx" "appletvos" "appletvsimulator")
 for ARG in ${PLATFORMS[@]}; do
