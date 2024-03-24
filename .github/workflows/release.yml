@@ -13,8 +13,8 @@ env:
 jobs:
   publish_binary_release:
     name: Publish binary release
-    timeout-minutes: 10
     runs-on: macos-14
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: maxim-lobanov/setup-xcode@v1
