@@ -3,10 +3,9 @@ name: Binary Release
 on:
   push:
     branches:
-#     - 'master'
-      - 'feature/ci-release'
-#   paths:
-#     - '.version'
+     - 'master'
+   paths:
+     - '.version'
 
 env:
   FRAMEWORK_ARTIFACT: "wg-go.xcframework"
