@@ -3,10 +3,10 @@ name: Binary Release
 on:
   push:
     branches:
-      #- 'master'
+#     - 'master'
       - 'feature/ci-release'
-    paths:
-      - '.version'
+#   paths:
+#     - '.version'
 
 env:
   PACKAGE_ARTIFACT: "build/wg-go.xcframework.zip"
