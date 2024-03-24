@@ -1,6 +1,4 @@
 #!/bin/bash
-
-# FIXME: tag name should embed wg version + script version
 if [[ -z $1 ]]; then
     echo "Provide a tag"
     exit 1
