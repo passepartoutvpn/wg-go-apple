@@ -32,7 +32,7 @@ jobs:
 
           SCRIPT_VERSION=${COMPOUND_VERSION#*-}
 
-          MERGED_PATCH=$((($LIBRARY_PATCH + 1) * 100 + $script_version))
+          MERGED_PATCH=$((($LIBRARY_PATCH + 1) * 100 + $SCRIPT_VERSION))
           TAG_NAME="$LIBRARY_MINOR.$MERGED_PATCH"
 
           ./build-platforms.sh
