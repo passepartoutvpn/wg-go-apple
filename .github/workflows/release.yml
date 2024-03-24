@@ -17,6 +17,12 @@ jobs:
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "15.2"
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "stable"
       - uses: passepartoutvpn/action-release-binary-package@v1
         with:
           script: "ci-generate.sh"
