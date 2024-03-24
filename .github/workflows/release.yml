@@ -45,7 +45,7 @@ jobs:
           echo "library_version=$LIBRARY_VERSION" >> $GITHUB_OUTPUT
           echo "script_version=$SCRIPT_VERSION" >> $GITHUB_OUTPUT
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v4
+        uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.GPG_KEY }}
           passphrase: ${{ secrets.GPG_PASSPHRASE }}
