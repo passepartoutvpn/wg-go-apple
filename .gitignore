@@ -8,6 +8,6 @@ DerivedData/
 .netrc
 build/
 out/
-*.xcframework
+*.xcframework*
 .cache/
 .tmp/
