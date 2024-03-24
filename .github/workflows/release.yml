@@ -85,7 +85,7 @@ jobs:
           echo "zip=$PACKAGE_ZIP" >> $GITHUB_OUTPUT
           echo "checksum=$PACKAGE_CHECKSUM" >> $GITHUB_OUTPUT
       - name: Publish release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           name: ${{ steps.package.outputs.release_name }}
           tag_name: ${{ steps.framework.outputs.tag }}
