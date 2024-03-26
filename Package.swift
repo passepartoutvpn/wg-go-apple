@@ -5,6 +5,11 @@ import PackageDescription
 
 let package = Package(
     name: "wg-go-apple",
+    platforms: [
+        .macOS(.v12),
+        .iOS(.v15),
+        .tvOS(.v17)
+    ],
     products: [
         .library(
             name: "wg-go-apple",
