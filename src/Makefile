@@ -41,7 +41,7 @@ $(BUILDDIR)/libwg-go-$(1).a: export CGO_ENABLED := 1
 $(BUILDDIR)/libwg-go-$(1).a: export CGO_CFLAGS := $(CFLAGS_PREFIX) -target $(TARGET)
 $(BUILDDIR)/libwg-go-$(1).a: export CGO_LDFLAGS := $(CFLAGS_PREFIX) -target $(TARGET)
 $(BUILDDIR)/libwg-go-$(1).a: export GOOS := $(GOOS_$(PLATFORM_NAME))
-$(BUILDDIR)/libwg-go-$(1).a: export GOARCH := $(shell echo $(1) | cut -d '-' -f1 | sed s/x86_64/amd64/)
+$(BUILDDIR)/libwg-go-$(1).a: export GOARCH := $(subst x86_64,amd64,$(word 1, $(subst -, ,$(1))))
 $(BUILDDIR)/libwg-go-$(1).a: $(GOROOT)/.prepared go.mod
 	go build -ldflags=-w -trimpath -v -o "$(BUILDDIR)/libwg-go-$(1).a" -buildmode c-archive
 	rm -f "$(BUILDDIR)/libwg-go-$(1).h"
