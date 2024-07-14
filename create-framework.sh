@@ -6,8 +6,7 @@ fi
 PLATFORMS_PATH="build"
 FRAMEWORK_PATH="$1"
 
-PLATFORMS=("iphoneos" "iphonesimulator" "macosx" "appletvos" "appletvsimulator")
-for ARG in ${PLATFORMS[@]}; do
+for ARG in `ls $PLATFORMS_PATH`; do
     ARGS+="-library $PLATFORMS_PATH/$ARG/libwg-go.a "
     ARGS+="-headers $PLATFORMS_PATH/$ARG/Headers "
 done
