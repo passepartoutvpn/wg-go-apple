@@ -18,8 +18,6 @@ DESTDIR ?= $(CONFIGURATION_BUILD_DIR)
 BUILDDIR ?= $(CONFIGURATION_TEMP_DIR)/wireguard-go-bridge
 
 CFLAGS_PREFIX := -isysroot $(SDKROOT)
-GOARCH_arm64 := arm64
-GOARCH_x86_64 := amd64
 GOOS_macosx := $(if $(IS_CATALYST),ios,darwin)
 GOOS_iphoneos := ios
 GOOS_iphonesimulator := ios
@@ -43,7 +41,7 @@ $(BUILDDIR)/libwg-go-$(1).a: export CGO_ENABLED := 1
 $(BUILDDIR)/libwg-go-$(1).a: export CGO_CFLAGS := $(CFLAGS_PREFIX) -target $(TARGET)
 $(BUILDDIR)/libwg-go-$(1).a: export CGO_LDFLAGS := $(CFLAGS_PREFIX) -target $(TARGET)
 $(BUILDDIR)/libwg-go-$(1).a: export GOOS := $(GOOS_$(PLATFORM_NAME))
-$(BUILDDIR)/libwg-go-$(1).a: export GOARCH := $(GOARCH_$(1))
+$(BUILDDIR)/libwg-go-$(1).a: export GOARCH := $(shell echo $(1) | cut -d '-' -f1 | sed s/x86_64/amd64/)
 $(BUILDDIR)/libwg-go-$(1).a: $(GOROOT)/.prepared go.mod
 	go build -ldflags=-w -trimpath -v -o "$(BUILDDIR)/libwg-go-$(1).a" -buildmode c-archive
 	rm -f "$(BUILDDIR)/libwg-go-$(1).h"
