@@ -19,6 +19,6 @@ function make_wg_go() {
 
 make_wg_go "iphoneos" "arm64-apple-ios15.0"
 make_wg_go "iphonesimulator" "arm64-apple-ios15.0-simulator"
-make_wg_go "macosx" "arm64-apple-macos12.0"
+make_wg_go "macosx" "arm64-apple-macos12.0 x86_64-apple-macos12.0"
 make_wg_go "appletvos" "arm64-apple-tvos17.0"
 make_wg_go "appletvsimulator" "arm64-apple-tvos17.0-simulator"
