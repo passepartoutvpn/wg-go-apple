@@ -11,7 +11,7 @@ CONFIGURATION_TEMP_DIR ?= $(CURDIR)/.tmp
 IS_CATALYST ?= $(shell if [[ "$(EFFECTIVE_PLATFORM_NAME)" == *"maccatalyst"* ]]; then echo 1; fi)
 TARGETS ?= $(if $(IS_CATALYST),arm64-apple-ios14.0-macabi,)
 
-export PATH := $(PATH):/usr/local/bin:/opt/homebrew/bin
+export PATH := $(PATH):/opt/homebrew/bin:/usr/local/bin
 export CC ?= clang
 LIPO ?= lipo
 DESTDIR ?= $(CONFIGURATION_BUILD_DIR)
