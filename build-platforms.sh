@@ -12,7 +12,7 @@ function make_wg_go() {
     mkdir -p "$outdir/Headers"
     make -C "$WG_GO_PATH" PLATFORM_NAME="$platform_name" TARGETS="$targets"
     cp "$WG_GO_PATH/out/libwg-go.a" "$outdir"
-    cp "$WG_GO_PATH/wireguard.h" "$outdir/Headers"
+    cp "$WG_GO_PATH/wg_go.h" "$outdir/Headers"
     cp "$WG_GO_PATH/module.modulemap" "$outdir/Headers"
     make -C "$WG_GO_PATH" clean
 }

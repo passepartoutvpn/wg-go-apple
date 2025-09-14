@@ -1,5 +1,5 @@
 module wg_go {
-    umbrella header "wireguard.h"
+    umbrella header "wg_go.h"
     link "wg-go"
     export *
 }
